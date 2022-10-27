@@ -37,7 +37,7 @@ function App() {
         moneyDetails.totalHours -= hours;
         setMoneyDetails({ ...moneyDetails });
         setEmployees(employees.filter((emp) => emp.index !== index));
-        calculateSalaries()
+        // calculateSalaries()
     }
 
     function updateEmployee(index, detail, value) {
