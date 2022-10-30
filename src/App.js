@@ -59,15 +59,19 @@ function App() {
     function calculateSalaries() {
         if (moneyDetails.totalHours) {
             moneyDetails.perHour =
-                moneyDetails.allTips / moneyDetails.totalHours <
-                moneyDetails.minimum
-                    ? moneyDetails.minimum
-                    : +(moneyDetails.allTips / moneyDetails.totalHours).toFixed(2);
+                // moneyDetails.allTips / moneyDetails.totalHours <
+                // moneyDetails.minimum
+                //     ? moneyDetails.minimum
+                //     :
+                +(moneyDetails.allTips / moneyDetails.totalHours).toFixed(2);
             setMoneyDetails({ ...moneyDetails });
 
             for (const emp of employees) {
                 emp.salary = +(emp.hours * moneyDetails.minimum).toFixed(2);
-                emp.tips = +(emp.hours * moneyDetails.perHour - emp.salary).toFixed(2);
+                emp.tips = +(
+                    emp.hours * moneyDetails.perHour -
+                    emp.salary
+                ).toFixed(2);
             }
 
             setEmployees([...employees]);
@@ -98,7 +102,7 @@ function App() {
                     employee={emp}
                     remove={remove}
                     updateEmployee={updateEmployee}
-                    idx= {idx}
+                    idx={idx}
                 />
             ))}
 
