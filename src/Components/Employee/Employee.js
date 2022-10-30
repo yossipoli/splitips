@@ -74,7 +74,7 @@ function Employee({ idx, employee, remove, updateEmployee }) {
                     </label>
                     <label className="hoursLabel">
                         טיפ: {" "}
-                        <span className="hoursSpan">{employee.tips}₪</span>
+                        <span style={{color: (employee.tips<0)&& 'red'}} className="hoursSpan">{employee.tips}₪</span>
                     </label>
                 </div>
             </div>
