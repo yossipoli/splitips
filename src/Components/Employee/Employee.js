@@ -1,16 +1,10 @@
-// import { useState } from "react";
 import "./Employee.css";
 import { FaTrash } from "react-icons/fa";
 
 function Employee({ idx, employee, remove, onChange }) {
-    // console.log({employee});
-    function updateEmployee(e) {
-        onChange(
-            // employee.index,
-            e.target.name,
-            e.target.value
-        );
-    }
+    const updateEmployee = (e) => {
+        onChange(e.target.name, e.target.value);
+    };
     return (
         <div className="employee">
             <div>

@@ -17,15 +17,15 @@ const employee = (index) => ({
     tips: 0,
 });
 
-function calculateDifferenceHours(start, end) {
+const calculateDifferenceHours = (start, end) => {
     start = start.split(":");
     end = end.split(":");
     start = +start[0] + +start[1] / 60;
     end = +end[0] + +end[1] / 60;
     return +(end - start + (end - start < 0 ? 24 : 0)).toFixed(2);
-}
+};
 
-function calculateSalaries({ moneyDetails, employees }) {
+const calculateSalaries = ({ moneyDetails, employees }) => {
     const nextEmployees = [...employees];
     const nextMoneyDetails = { ...moneyDetails };
     if (nextMoneyDetails.totalHours) {
@@ -45,7 +45,7 @@ function calculateSalaries({ moneyDetails, employees }) {
         calculatedMoneyDetails: nextMoneyDetails,
         updatedEmployees: nextEmployees,
     };
-}
+};
 
 function App() {
     const [moneyDetails, setMoneyDetails] = useState({
@@ -57,12 +57,12 @@ function App() {
 
     const [employees, setEmployees] = useState([employee(index)]);
 
-    function add() {
+    const add = () => {
         index++;
         setEmployees([...employees, employee(index)]);
-    }
+    };
 
-    function updateEmployee(index, detail, value) {
+    const updateEmployee = (index, detail, value) => {
         let nextEmployees = [...employees];
         const employeeIndex = nextEmployees.findIndex(
             (emp) => emp.index === index
@@ -91,19 +91,17 @@ function App() {
         setEmployees(nextEmployees);
     }
 
-    function remove(index, hours) {
+    const remove = (index, hours) => {
         const nextMoneyDetails = { ...moneyDetails };
         nextMoneyDetails.totalHours = nextMoneyDetails.totalHours - hours;
+        let nextEmployees = employees.filter((emp) => emp.index !== index);
         const { calculatedMoneyDetails, updatedEmployees } = calculateSalaries({
-            nextMoneyDetails,
-            employees,
+            moneyDetails: nextMoneyDetails,
+            employees: nextEmployees,
         });
         setMoneyDetails(calculatedMoneyDetails);
         setEmployees(updatedEmployees);
     }
-
-    console.log({ moneyDetails });
-    console.log({ employees });
 
     return (
         <div className="App">
