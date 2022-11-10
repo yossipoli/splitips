@@ -1,8 +1,16 @@
 // import { useState } from "react";
 import "./Employee.css";
-import {FaTrash} from 'react-icons/fa'
+import { FaTrash } from "react-icons/fa";
 
-function Employee({ idx, employee, remove, updateEmployee }) {
+function Employee({ idx, employee, remove, onChange }) {
+    // console.log({employee});
+    function updateEmployee(e) {
+        onChange(
+            // employee.index,
+            e.target.name,
+            e.target.value
+        );
+    }
     return (
         <div className="employee">
             <div>
@@ -14,21 +22,15 @@ function Employee({ idx, employee, remove, updateEmployee }) {
                             }
                             className="removeBtn"
                         >
-                            <FaTrash/>
+                            <FaTrash />
                         </button>
                     </div>
                     שם {idx + 1}:
                     <input
                         type="text"
                         name="name"
-                        defaultValue={employee.name}
-                        onChange={(e) =>
-                            updateEmployee(
-                                employee.index,
-                                e.target.name,
-                                e.target.value
-                            )
-                        }
+                        value={employee.name}
+                        onChange={updateEmployee}
                     />
                 </div>
                 <div className="row">
@@ -37,14 +39,8 @@ function Employee({ idx, employee, remove, updateEmployee }) {
                         <input
                             name="start"
                             type="time"
-                            defaultValue={employee.start}
-                            onChange={(e) =>
-                                updateEmployee(
-                                    employee.index,
-                                    e.target.name,
-                                    e.target.value
-                                )
-                            }
+                            value={employee.start}
+                            onChange={updateEmployee}
                         />
                     </div>
                     <div className="endTime">
@@ -52,14 +48,8 @@ function Employee({ idx, employee, remove, updateEmployee }) {
                         <input
                             name="end"
                             type="time"
-                            defaultValue={employee.end}
-                            onChange={(e) =>
-                                updateEmployee(
-                                    employee.index,
-                                    e.target.name,
-                                    e.target.value
-                                )
-                            }
+                            value={employee.end}
+                            onChange={updateEmployee}
                         />
                     </div>
                 </div>
@@ -69,12 +59,17 @@ function Employee({ idx, employee, remove, updateEmployee }) {
                         <span className="hoursSpan">{employee.hours}</span>
                     </label>
                     <label className="hoursLabel">
-                        שכר: {" "}
+                        שכר:{" "}
                         <span className="hoursSpan">{employee.salary}₪</span>
                     </label>
                     <label className="hoursLabel">
-                        טיפ: {" "}
-                        <span style={{color: (employee.tips<0)&& 'red'}} className="hoursSpan">{employee.tips}₪</span>
+                        טיפ:{" "}
+                        <span
+                            style={{ color: employee.tips < 0 && "red" }}
+                            className="hoursSpan"
+                        >
+                            {employee.tips}₪
+                        </span>
                     </label>
                 </div>
             </div>

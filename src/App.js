@@ -5,8 +5,49 @@ import Add from "./Components/Footer/Add";
 import Header from "./Components/Header/Header";
 import Logo from "./Components/Logo/Logo";
 
+let index = 0;
+
+const employee = (index) => ({
+    index,
+    name: "",
+    start: "",
+    end: "",
+    hours: 0,
+    salary: 0,
+    tips: 0,
+});
+
+function calculateDifferenceHours(start, end) {
+    start = start.split(":");
+    end = end.split(":");
+    start = +start[0] + +start[1] / 60;
+    end = +end[0] + +end[1] / 60;
+    return +(end - start + (end - start < 0 ? 24 : 0)).toFixed(2);
+}
+
+function calculateSalaries({ moneyDetails, employees }) {
+    const nextEmployees = [...employees];
+    const nextMoneyDetails = { ...moneyDetails };
+    if (nextMoneyDetails.totalHours) {
+        nextMoneyDetails.perHour = +(
+            nextMoneyDetails.allTips / nextMoneyDetails.totalHours
+        ).toFixed(2);
+
+        for (const emp of nextEmployees) {
+            emp.salary = +(emp.hours * nextMoneyDetails.minimum).toFixed(2);
+            emp.tips = +(
+                emp.hours * nextMoneyDetails.perHour -
+                emp.salary
+            ).toFixed(2);
+        }
+    }
+    return {
+        calculatedMoneyDetails: nextMoneyDetails,
+        updatedEmployees: nextEmployees,
+    };
+}
+
 function App() {
-    const [index, setIndex] = useState(1);
     const [moneyDetails, setMoneyDetails] = useState({
         allTips: 0,
         minimum: 40,
@@ -14,77 +55,55 @@ function App() {
         totalHours: 0,
     });
 
-    const employee = {
-        index: 0,
-        name: "",
-        start: "",
-        end: "",
-        hours: 0,
-        salary: 0,
-        tips: 0,
-    };
-
-    const [employees, setEmployees] = useState([{ ...employee, index: 0 }]);
+    const [employees, setEmployees] = useState([employee(index)]);
 
     function add() {
-        setIndex(index + 1);
-        const newEmployee = { ...employee };
-        newEmployee.index = index;
-        setEmployees([...employees, newEmployee]);
-    }
-
-    function remove(index, hours) {
-        moneyDetails.totalHours -= hours;
-        setMoneyDetails({ ...moneyDetails });
-        setEmployees(employees.filter((emp) => emp.index !== index));
-        // calculateSalaries()
+        index++;
+        setEmployees([...employees, employee(index)]);
     }
 
     function updateEmployee(index, detail, value) {
-        const emp = employees.find((emp) => emp.index === index);
-        emp[detail] = value;
+        let nextEmployees = [...employees];
+        const employeeIndex = nextEmployees.findIndex(
+            (emp) => emp.index === index
+        );
+        const nextEmployee = { ...nextEmployees[employeeIndex] };
+        nextEmployee[detail] = value;
 
-        if (detail !== "name" && emp.start && emp.end) {
-            moneyDetails.totalHours -= emp.hours;
-            setMoneyDetails({ ...moneyDetails });
-            emp.hours = calculateDifferenceHours(emp.start, emp.end);
-            moneyDetails.totalHours += emp.hours;
-            setMoneyDetails({ ...moneyDetails });
-            setEmployees([...employees]);
-
-            calculateSalaries();
+        if (detail !== "name" && nextEmployee.start && nextEmployee.end) {
+            const nextMoneyDetails = { ...moneyDetails };
+            nextMoneyDetails.totalHours -= nextEmployee.hours;
+            nextEmployee.hours = calculateDifferenceHours(
+                nextEmployee.start,
+                nextEmployee.end
+            );
+            nextMoneyDetails.totalHours += nextEmployee.hours;
+            const { calculatedMoneyDetails, updatedEmployees } =
+                calculateSalaries({
+                    moneyDetails: nextMoneyDetails,
+                    employees: nextEmployees,
+                });
+            nextEmployees = updatedEmployees;
+            setMoneyDetails(calculatedMoneyDetails);
         }
+
+        nextEmployees[employeeIndex] = nextEmployee;
+        setEmployees(nextEmployees);
     }
 
-    function calculateSalaries() {
-        if (moneyDetails.totalHours) {
-            moneyDetails.perHour =
-                // moneyDetails.allTips / moneyDetails.totalHours <
-                // moneyDetails.minimum
-                //     ? moneyDetails.minimum
-                //     :
-                +(moneyDetails.allTips / moneyDetails.totalHours).toFixed(2);
-            setMoneyDetails({ ...moneyDetails });
-
-            for (const emp of employees) {
-                emp.salary = +(emp.hours * moneyDetails.minimum).toFixed(2);
-                emp.tips = +(
-                    emp.hours * moneyDetails.perHour -
-                    emp.salary
-                ).toFixed(2);
-            }
-
-            setEmployees([...employees]);
-        }
+    function remove(index, hours) {
+        const nextMoneyDetails = { ...moneyDetails };
+        nextMoneyDetails.totalHours = nextMoneyDetails.totalHours - hours;
+        const { calculatedMoneyDetails, updatedEmployees } = calculateSalaries({
+            nextMoneyDetails,
+            employees,
+        });
+        setMoneyDetails(calculatedMoneyDetails);
+        setEmployees(updatedEmployees);
     }
 
-    function calculateDifferenceHours(start, end) {
-        start = start.split(":");
-        end = end.split(":");
-        start = +start[0] + +start[1] / 60;
-        end = +end[0] + +end[1] / 60;
-        return +(end - start + (end - start < 0 ? 24 : 0)).toFixed(2);
-    }
+    console.log({ moneyDetails });
+    console.log({ employees });
 
     return (
         <div className="App">
@@ -92,8 +111,15 @@ function App() {
 
             <Header
                 moneyDetails={moneyDetails}
-                setMoneyDetails={setMoneyDetails}
-                calculateSalaries={calculateSalaries}
+                onChange={(nextValue) => {
+                    const { calculatedMoneyDetails, updatedEmployees } =
+                        calculateSalaries({
+                            employees,
+                            moneyDetails: { ...moneyDetails, ...nextValue },
+                        });
+                    setEmployees(updatedEmployees);
+                    setMoneyDetails(calculatedMoneyDetails);
+                }}
             />
 
             {employees.map((emp, idx) => (
@@ -101,7 +127,9 @@ function App() {
                     key={emp.index}
                     employee={emp}
                     remove={remove}
-                    updateEmployee={updateEmployee}
+                    onChange={(detail, value) =>
+                        updateEmployee(emp.index, detail, value)
+                    }
                     idx={idx}
                 />
             ))}

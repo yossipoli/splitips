@@ -1,14 +1,12 @@
 import "./Header.css";
 
-function Header({ moneyDetails, setMoneyDetails, calculateSalaries }) {
+function Header({ moneyDetails, onChange }) {
     function handleChanges(e) {
-        moneyDetails[e.target.name] = e.target.value;
-        setMoneyDetails({ ...moneyDetails });
-        calculateSalaries();
+        onChange({[e.target.name]: e.target.value});
     }
 
     return (
-        <div className="header" onChange={calculateSalaries}>
+        <div className="header">
             <div className="row">
                 <div>
                     סה"כ טיפים: ₪{" "}
@@ -16,7 +14,7 @@ function Header({ moneyDetails, setMoneyDetails, calculateSalaries }) {
                         type="number"
                         name="allTips"
                         min={0}
-                        defaultValue={moneyDetails.allTips}
+                        value={moneyDetails.allTips}
                         onChange={handleChanges}
                     />
                 </div>
@@ -26,7 +24,7 @@ function Header({ moneyDetails, setMoneyDetails, calculateSalaries }) {
                         type="number"
                         name="minimum"
                         min={0}
-                        defaultValue={moneyDetails.minimum}
+                        value={moneyDetails.minimum}
                         step="0.5"
                         onChange={handleChanges}
                     />
