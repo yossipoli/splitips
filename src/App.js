@@ -69,6 +69,7 @@ function App() {
         );
         const nextEmployee = { ...nextEmployees[employeeIndex] };
         nextEmployee[detail] = value;
+        nextEmployees[employeeIndex] = nextEmployee;
 
         if (detail !== "name" && nextEmployee.start && nextEmployee.end) {
             const nextMoneyDetails = { ...moneyDetails };
@@ -87,7 +88,6 @@ function App() {
             setMoneyDetails(calculatedMoneyDetails);
         }
 
-        nextEmployees[employeeIndex] = nextEmployee;
         setEmployees(nextEmployees);
     }
 
