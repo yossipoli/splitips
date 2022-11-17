@@ -22,7 +22,7 @@ const calculateHoursDifference = (start, end) => {
     end = end.split(":");
     start = +start[0] + +start[1] / 60;
     end = +end[0] + +end[1] / 60;
-    return +(end - start + (end - start < 0 ? 24 : 0)).toFixed(2);
+    return Math.round((end - start + (end - start < 0 ? 24 : 0)) * 100) /100
 };
 
 function App() {
@@ -42,6 +42,12 @@ function App() {
         setEmployeesIn([...employeesIn, employeeIn()]);
     };
 
+    const duplicate = (idx) => {
+        const copy = {...employeesIn[idx]};
+        copy.name = '';
+        setEmployeesIn([...employeesIn, copy])
+    } 
+
     const handleSalariesChange = (prop, value) => {
         setSalariesIn({
             ...salariesIn,
@@ -56,7 +62,8 @@ function App() {
     };
 
     const remove = (idx) => {
-        console.log(idx)
+        setEmployeesOut([...employeesOut.slice(0,idx), ...employeesOut.slice(idx+1)])
+        setEmployeesIn([...employeesIn.slice(0,idx), ...employeesIn.slice(idx+1)])
     };
 
     useEffect(() => {
@@ -97,6 +104,7 @@ function App() {
                     key={idx}
                     employeeIn={employeesIn[idx]}
                     employeeOut={emp}
+                    duplicate={duplicate}
                     remove={remove}
                     onChange={updateEmployee}
                     idx={idx}
