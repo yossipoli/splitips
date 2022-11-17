@@ -6,60 +6,76 @@ function Header({ salariesIn, perHour, onChange }) {
     }
 
     return (
-        <div className="header">
-            <div className="row">
-                <div>
-                    שכר מינימום: ₪{" "}
-                    <input
-                        type="number"
-                        name="minimum"
-                        min={0}
-                        value={salariesIn.minimum}
-                        step="0.5"
-                        onChange={handleChanges}
-                    />
+        <div>
+            <div className="salaries">
+                <div className="col">
+                    <div>
+                        שכר מינימום:
+                        <div>
+                            ₪{" "}
+                            <input
+                                type="number"
+                                name="minimum"
+                                min={0}
+                                value={salariesIn.minimum}
+                                step="0.5"
+                                onChange={handleChanges}
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        טיפ מזומן:
+                        <div>
+                            ₪{" "}
+                            <input
+                                type="number"
+                                name="cash"
+                                min={0}
+                                value={salariesIn.cash ? salariesIn.cash : ""}
+                                placeholder="0"
+                                onChange={handleChanges}
+                            />
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    אחוז הורדה מאשראי: %{" "}
-                    <input
-                        type="number"
-                        name="percent"
-                        min={0}
-                        max={100}
-                        value={salariesIn.percent}
-                        onChange={handleChanges}
-                    />
+
+                <div className="col">
+                    <div>
+                        אחוז הורדה מאשראי:
+                        <div>
+                            %{" "}
+                            <input
+                                type="number"
+                                name="percent"
+                                min={0}
+                                max={100}
+                                value={salariesIn.percent}
+                                onChange={handleChanges}
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        טיפ אשראי:
+                        <div>
+                            ₪{" "}
+                            <input
+                                type="number"
+                                name="credit"
+                                min={0}
+                                value={
+                                    salariesIn.credit ? salariesIn.credit : ""
+                                }
+                                placeholder="0"
+                                step="0.5"
+                                onChange={handleChanges}
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div className="row">
-                <div>
-                    טיפ מזומן: ₪{" "}
-                    <input
-                        type="number"
-                        name="cash"
-                        min={0}
-                        value={salariesIn.cash ? salariesIn.cash : ""}
-                        placeholder="0"
-                        onChange={handleChanges}
-                    />
-                </div>
-                <div>
-                    טיפ אשראי: ₪{" "}
-                    <input
-                        type="number"
-                        name="credit"
-                        min={0}
-                        value={salariesIn.credit? salariesIn.credit : ""}
-                        placeholder="0"
-                        step="0.5"
-                        onChange={handleChanges}
-                    />
-                </div>
-            </div>
-
-            <div>
-                שכר שעתי: ₪ <label>{Math.round(perHour*100)/100}</label>
+                שכר שעתי: ₪ <label>{Math.round(perHour * 100) / 100}</label>
             </div>
         </div>
     );

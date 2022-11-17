@@ -33,4 +33,5 @@
 .employee input {
     margin: 0 10px;
     height: 20px;
+    max-width: 35vw;
 }

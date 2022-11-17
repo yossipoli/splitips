@@ -1,10 +1,14 @@
-
-
-.header div{
-    margin: 10px;
+.salaries{
+    display: flex;
+    justify-content: center;
 }
 
-.header input{
+.salaries div{
+    margin: 5px 10px;
+}
+
+.salaries input{
     width: 60px;
     direction: ltr;
 }
+
