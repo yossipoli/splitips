@@ -6,4 +6,5 @@
 
 .header input{
     width: 60px;
+    direction: ltr;
 }
