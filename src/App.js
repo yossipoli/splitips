@@ -1,146 +1,112 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import Employee from "./Components/Employee/Employee";
-import Add from "./Components/Footer/Add";
-import Header from "./Components/Header/Header";
+import Add from "./Components/Add/Add";
+import Header from "./Components/Salaries/Salaries";
 import Logo from "./Components/Logo/Logo";
 
-let index = 0;
-
-const employee = (index) => ({
-    index,
+const employeeIn = () => ({
     name: "",
     start: "",
     end: "",
+});
+
+const employeeOut = () => ({
     hours: 0,
     salary: 0,
     tips: 0,
 });
 
-const calculateDifferenceHours = (start, end) => {
+const calculateHoursDifference = (start, end) => {
     start = start.split(":");
     end = end.split(":");
     start = +start[0] + +start[1] / 60;
     end = +end[0] + +end[1] / 60;
-    return +(end - start + (end - start < 0 ? 24 : 0)).toFixed(2);
-};
-
-const calculateSalaries = ({ moneyDetails, employees }) => {
-    const nextEmployees = [...employees];
-    const nextMoneyDetails = { ...moneyDetails };
-    nextMoneyDetails.allTips =
-        ((100 - +nextMoneyDetails.percent) / 100) * +nextMoneyDetails.credit +
-        +nextMoneyDetails.cash;
-
-        nextMoneyDetails.perHour =
-            +(nextMoneyDetails.allTips / nextMoneyDetails.totalHours).toFixed(2) || 0;
-
-        if (nextMoneyDetails.perHour === Infinity) nextMoneyDetails.perHour = 0
-
-        for (const emp of nextEmployees) {
-            emp.salary = +(emp.hours * nextMoneyDetails.minimum).toFixed(2);
-            emp.tips = +(
-                emp.hours * nextMoneyDetails.perHour -
-                emp.salary
-            ).toFixed(2);
-        }
-
-    return {
-        calculatedMoneyDetails: nextMoneyDetails,
-        updatedEmployees: nextEmployees,
-    };
+    return Math.round((end - start + (end - start < 0 ? 24 : 0)) * 100) /100
 };
 
 function App() {
-    const [moneyDetails, setMoneyDetails] = useState({
+    const [salariesIn, setSalariesIn] = useState({
         cash: 0,
         credit: 0,
         percent: 20,
-        allTips: 0,
         minimum: 40,
-        perHour: 0,
-        totalHours: 0,
     });
 
-    const [employees, setEmployees] = useState([employee(index)]);
+    const [perHour, setPerHour] = useState(0);
+
+    const [employeesIn, setEmployeesIn] = useState([employeeIn()]);
+    const [employeesOut, setEmployeesOut] = useState([employeeOut()]);
 
     const add = () => {
-        index++;
-        setEmployees([...employees, employee(index)]);
+        setEmployeesIn([...employeesIn, employeeIn()]);
     };
 
-    const updateEmployee = (index, detail, value) => {
-        let nextEmployees = [...employees];
-        const employeeIndex = nextEmployees.findIndex(
-            (emp) => emp.index === index
-        );
-        const nextEmployee = { ...nextEmployees[employeeIndex] };
-        nextEmployee[detail] = value;
-        nextEmployees[employeeIndex] = nextEmployee;
+    const duplicate = (idx) => {
+        const copy = {...employeesIn[idx]};
+        copy.name = '';
+        setEmployeesIn([...employeesIn, copy])
+    } 
 
-        if (
-            detail !== "name" &&
-            nextEmployee.start !== "" &&
-            nextEmployee.end !== ""
-        ) {
-            const nextMoneyDetails = { ...moneyDetails };
-            nextMoneyDetails.totalHours -= nextEmployee.hours;
-            nextEmployee.hours = calculateDifferenceHours(
-                nextEmployee.start,
-                nextEmployee.end
-            );
-            nextMoneyDetails.totalHours += nextEmployee.hours;
-            const { calculatedMoneyDetails, updatedEmployees } =
-                calculateSalaries({
-                    moneyDetails: nextMoneyDetails,
-                    employees: nextEmployees,
-                });
-            nextEmployees = updatedEmployees;
-            setMoneyDetails(calculatedMoneyDetails);
+    const handleSalariesChange = (prop, value) => {
+        setSalariesIn({
+            ...salariesIn,
+            [prop]: value,
+        });
+    };
+
+    const updateEmployee = (idx, prop, value) => {
+        const nextEmployees = [...employeesIn];
+        nextEmployees[idx][prop] = value;
+        setEmployeesIn(nextEmployees);
+    };
+
+    const remove = (idx) => {
+        setEmployeesOut([...employeesOut.slice(0,idx), ...employeesOut.slice(idx+1)])
+        setEmployeesIn([...employeesIn.slice(0,idx), ...employeesIn.slice(idx+1)])
+    };
+
+    useEffect(() => {
+        const allTips = ((100 - +salariesIn.percent) / 100) * +salariesIn.credit + +salariesIn.cash;
+        let totalHours = 0;
+        const nextEmployees = [];
+
+        for (const emp of employeesIn) {
+            const nextEmployee = employeeOut(emp.index);
+            nextEmployee.hours = calculateHoursDifference(emp.start, emp.end) || 0;
+            totalHours += nextEmployee.hours;
+            nextEmployee.salary = +salariesIn.minimum * nextEmployee.hours;
+            nextEmployees.push(nextEmployee);
         }
 
-        setEmployees(nextEmployees);
-    };
+        const nextPerHour = !totalHours ? 0 : allTips / totalHours;
 
-    const remove = (index, hours) => {
-        const nextMoneyDetails = { ...moneyDetails };
-        nextMoneyDetails.totalHours = nextMoneyDetails.totalHours - hours;
-        let nextEmployees = employees.filter((emp) => emp.index !== index);
+        for (const emp of nextEmployees) {
+            emp.tips = emp.hours ? nextPerHour*emp.hours - emp.salary : 0;
+        }
 
-        const { calculatedMoneyDetails, updatedEmployees } = calculateSalaries({
-            moneyDetails: nextMoneyDetails,
-            employees: nextEmployees,
-        });
-
-        setMoneyDetails(calculatedMoneyDetails);
-        setEmployees(updatedEmployees);
-    };
+        setEmployeesOut(nextEmployees);
+        setPerHour(nextPerHour);
+    }, [employeesIn, salariesIn]);
 
     return (
         <div className="App">
             <Logo />
 
             <Header
-                moneyDetails={moneyDetails}
-                onChange={(nextValue) => {
-                    const { calculatedMoneyDetails, updatedEmployees } =
-                        calculateSalaries({
-                            employees,
-                            moneyDetails: { ...moneyDetails, ...nextValue },
-                        });
-                    setEmployees(updatedEmployees);
-                    setMoneyDetails(calculatedMoneyDetails);
-                }}
+                salariesIn={salariesIn}
+                perHour={perHour}
+                onChange={handleSalariesChange}
             />
 
-            {employees.map((emp, idx) => (
+            {employeesOut.map((emp, idx) => (
                 <Employee
-                    key={emp.index}
-                    employee={emp}
+                    key={idx}
+                    employeeIn={employeesIn[idx]}
+                    employeeOut={emp}
+                    duplicate={duplicate}
                     remove={remove}
-                    onChange={(detail, value) =>
-                        updateEmployee(emp.index, detail, value)
-                    }
+                    onChange={updateEmployee}
                     idx={idx}
                 />
             ))}

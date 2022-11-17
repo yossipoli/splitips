@@ -1,8 +1,8 @@
-import "./Header.css";
+import "./Salaries.css";
 
-function Header({ moneyDetails, onChange }) {
+function Header({ salariesIn, perHour, onChange }) {
     function handleChanges(e) {
-        onChange({[e.target.name]: e.target.value});
+        onChange(e.target.name, e.target.value);
     }
 
     return (
@@ -14,7 +14,7 @@ function Header({ moneyDetails, onChange }) {
                         type="number"
                         name="minimum"
                         min={0}
-                        value={moneyDetails.minimum}
+                        value={salariesIn.minimum}
                         step="0.5"
                         onChange={handleChanges}
                     />
@@ -25,8 +25,8 @@ function Header({ moneyDetails, onChange }) {
                         type="number"
                         name="percent"
                         min={0}
-                        max= {100}
-                        value={moneyDetails.percent}
+                        max={100}
+                        value={salariesIn.percent}
                         onChange={handleChanges}
                     />
                 </div>
@@ -39,7 +39,8 @@ function Header({ moneyDetails, onChange }) {
                         type="number"
                         name="cash"
                         min={0}
-                        value={moneyDetails.cash}
+                        value={salariesIn.cash ? salariesIn.cash : ""}
+                        placeholder="0"
                         onChange={handleChanges}
                     />
                 </div>
@@ -49,7 +50,8 @@ function Header({ moneyDetails, onChange }) {
                         type="number"
                         name="credit"
                         min={0}
-                        value={moneyDetails.credit}
+                        value={salariesIn.credit? salariesIn.credit : ""}
+                        placeholder="0"
                         step="0.5"
                         onChange={handleChanges}
                     />
@@ -57,7 +59,7 @@ function Header({ moneyDetails, onChange }) {
             </div>
 
             <div>
-                שכר שעתי: ₪ <label>{moneyDetails.perHour}</label>
+                שכר שעתי: ₪ <label>{Math.round(perHour*100)/100}</label>
             </div>
         </div>
     );

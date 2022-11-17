@@ -1,9 +1,10 @@
 import "./Employee.css";
 import { FaTrash } from "react-icons/fa";
+import { IoCopy } from "react-icons/io5";
 
-function Employee({ idx, employee, remove, onChange }) {
+function Employee({idx, employeeIn, employeeOut, duplicate, remove, onChange}) {
     const updateEmployee = (e) => {
-        onChange(e.target.name, e.target.value);
+        onChange(idx, e.target.name, e.target.value);
     };
     return (
         <div className="employee">
@@ -11,10 +12,16 @@ function Employee({ idx, employee, remove, onChange }) {
                 <div className="name row">
                     <div className="remove row">
                         <button
-                            onClick={() =>
-                                remove(employee.index, +employee.hours)
-                            }
+                            onClick={()=> duplicate(idx)}
+                            className="duplicate"
+                            title="Duplicate"
+                        >
+                            <IoCopy />
+                        </button>
+                        <button
+                            onClick={() => remove(idx)}
                             className="removeBtn"
+                            title="Remove"
                         >
                             <FaTrash />
                         </button>
@@ -23,7 +30,7 @@ function Employee({ idx, employee, remove, onChange }) {
                     <input
                         type="text"
                         name="name"
-                        value={employee.name}
+                        value={employeeIn.name}
                         onChange={updateEmployee}
                     />
                 </div>
@@ -33,7 +40,7 @@ function Employee({ idx, employee, remove, onChange }) {
                         <input
                             name="start"
                             type="time"
-                            value={employee.start}
+                            value={employeeIn.start}
                             onChange={updateEmployee}
                         />
                     </div>
@@ -42,7 +49,7 @@ function Employee({ idx, employee, remove, onChange }) {
                         <input
                             name="end"
                             type="time"
-                            value={employee.end}
+                            value={employeeIn.end}
                             onChange={updateEmployee}
                         />
                     </div>
@@ -50,19 +57,23 @@ function Employee({ idx, employee, remove, onChange }) {
                 <div className="row">
                     <label className="hoursLabel">
                         שעות:{" "}
-                        <span className="hoursSpan">{employee.hours}</span>
+                        <span className="hoursSpan">
+                            {Math.round(employeeOut.hours * 100) / 100}
+                        </span>
                     </label>
                     <label className="hoursLabel">
                         שכר:{" "}
-                        <span className="hoursSpan">{employee.salary}₪</span>
+                        <span className="hoursSpan">
+                            {Math.round(employeeOut.salary * 100) / 100}₪
+                        </span>
                     </label>
                     <label className="hoursLabel">
                         טיפ:{" "}
                         <span
-                            style={{ color: employee.tips < 0 && "red" }}
+                            style={{ color: employeeOut.tips < 0 && "red" }}
                             className="hoursSpan"
                         >
-                            {employee.tips}₪
+                            {Math.round(employeeOut.tips * 100) / 100}₪
                         </span>
                     </label>
                 </div>
