@@ -3,13 +3,12 @@ import "./Logo.css";
 function Logo() {
     return (
         <div className="logo">
-            <h1>
-                {/* <span className="dollar">$</span> */}
+            <img src="./logoTitle.png" alt="TipSpliT" />
+            {/* <h1>
                 Tip
                 <span className="dollar">$</span>
                 pliT
-                {/* <span className="dollar">$</span> */}
-            </h1>
+            </h1> */}
         </div>
     );
 }

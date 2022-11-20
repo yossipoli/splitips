@@ -26,7 +26,7 @@ const calculateHoursDifference = (start, end) => {
 };
 
 function App() {
-    const [salariesIn, setSalariesIn] = useState({
+    const [salaries, setSalaries] = useState({
         cash: 0,
         credit: 0,
         percent: 20,
@@ -49,8 +49,8 @@ function App() {
     } 
 
     const handleSalariesChange = (prop, value) => {
-        setSalariesIn({
-            ...salariesIn,
+        setSalaries({
+            ...salaries,
             [prop]: value,
         });
     };
@@ -67,7 +67,7 @@ function App() {
     };
 
     useEffect(() => {
-        const allTips = ((100 - +salariesIn.percent) / 100) * +salariesIn.credit + +salariesIn.cash;
+        const allTips = ((100 - +salaries.percent) / 100) * +salaries.credit + +salaries.cash;
         let totalHours = 0;
         const nextEmployees = [];
 
@@ -75,7 +75,7 @@ function App() {
             const nextEmployee = employeeOut(emp.index);
             nextEmployee.hours = calculateHoursDifference(emp.start, emp.end) || 0;
             totalHours += nextEmployee.hours;
-            nextEmployee.salary = +salariesIn.minimum * nextEmployee.hours;
+            nextEmployee.salary = +salaries.minimum * nextEmployee.hours;
             nextEmployees.push(nextEmployee);
         }
 
@@ -87,14 +87,14 @@ function App() {
 
         setEmployeesOut(nextEmployees);
         setPerHour(nextPerHour);
-    }, [employeesIn, salariesIn]);
+    }, [employeesIn, salaries]);
 
     return (
         <div className="App">
             <Logo />
 
             <Header
-                salariesIn={salariesIn}
+                salariesIn={salaries}
                 perHour={perHour}
                 onChange={handleSalariesChange}
             />
