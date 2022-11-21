@@ -1,8 +1,12 @@
 import "./Salaries.css";
 
 function Header({ salariesIn, perHour, onChange }) {
-    function handleChanges(e) {
-        onChange(e.target.name, e.target.value);
+    const handleChanges = (e)=> {
+        let value = e.target.value < 0 ? 0 : e.target.value
+        if (e.target.name === "percent"){
+            if (value>100) value = 100
+        }
+        onChange(e.target.name, value);
     }
 
     return (
