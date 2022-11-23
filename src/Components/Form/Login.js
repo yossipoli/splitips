@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { API } from "../../DAL/API";
 import "./Form.css";
 import FormInput from "./InnerComponents/FormInput";
 
@@ -35,9 +36,13 @@ const Login = () => {
         setValues({ ...values, [e.target.name]: e.target.value });
       };
 
-    const onSubmit = (e) => {
+    const onSubmit = async(e) => {
         e.preventDefault()
-        console.log(values);
+        if (!await API.login(values)){
+            alert("Not user")
+        } else {
+            alert("OK")
+        };
     };
 
     return (
