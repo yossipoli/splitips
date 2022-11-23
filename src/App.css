@@ -1,4 +1,4 @@
-*{
+* {
   background-color: #282c34;
   color: aliceblue;
 }
@@ -9,8 +9,12 @@
   direction: rtl;
 }
 
-.row{
+.row {
   justify-content: center;
   display: flex;
   margin: 10px;
+}
+
+button{
+  cursor: pointer;
 }

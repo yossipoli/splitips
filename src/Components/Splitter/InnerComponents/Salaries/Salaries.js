@@ -1,6 +1,6 @@
 import "./Salaries.css";
 
-function Header({ salariesIn, perHour, onChange }) {
+function MoneyDetails({ salariesIn, perHour, onChange }) {
     const handleChanges = (e)=> {
         let value = e.target.value < 0 ? 0 : e.target.value
         if (e.target.name === "percent"){
@@ -85,4 +85,4 @@ function Header({ salariesIn, perHour, onChange }) {
     );
 }
 
-export default Header;
+export default MoneyDetails;
