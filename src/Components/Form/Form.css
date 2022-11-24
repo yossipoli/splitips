@@ -12,6 +12,10 @@
     border-radius: 10px;
 }
 
+.form :placeholder-shown{
+    direction: rtl;
+}
+
 .form input{
     direction: ltr;
 }

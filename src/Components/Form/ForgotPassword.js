@@ -6,11 +6,10 @@ import { API } from "../../DAL/API";
 import FormInput from "./InnerComponents/FormInput";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Forgot = () => {
     const nav = useNavigate()
     const [values, setValues] = useState({
         email: "",
-        password: "",
     });
 
     const inputs = [
@@ -18,20 +17,9 @@ const Login = () => {
             id: 1,
             name: "email",
             type: "email",
-            placeholder: "הכנס את כתובת המייל שלך",
+            placeholder: "כתובת המייל של החשבון איתה נרשמת",
             errorMessage: "כתובת אימייל לא תקינה",
-            label: "אימייל",
-            required: true,
-        },
-
-        {
-            id: 2,
-            name: "password",
-            type: "password",
-            placeholder: "הקלד כאן את הסיסמה שלך",
-            errorMessage: "סיסמה חייבת להיות באורך של 6 עד 20 תווים",
-            label: "סיסמה",
-            pattern: `[a-zA-Z0-9!@#$%^&*]{6,20}`,
+            label: "כתובת המייל של החשבון",
             required: true,
         },
     ];
@@ -42,14 +30,14 @@ const Login = () => {
 
     const onSubmit = async(e) => {
         e.preventDefault()
-        const res = await API.login(values)
+        const res = await API.forgot(values)
         switch (res) {
             case "wrong":
-                toast.warning("שם משתמש או סיסמה לא נכונים")
+                toast.warning("כתובת המייל הזו אינה נמצאת במערכת עדיין")
                 break
             case "success":
-                toast.success("התחברת למערכת בהצלחה")
-                setTimeout(()=> nav("/all"), 2000)
+                toast.info("נשלחה לכתובת המייל שלך בקשה לאיפוס סיסמה")
+                setTimeout(()=> nav("/all"), 2000)//TODO change to login
                 break
             default:
                 toast.error("אירעה שגיאה")
@@ -61,9 +49,10 @@ const Login = () => {
             <div className="alert">
                 <ToastContainer/>
             </div>
-            <div className="form login">
+            <div className="form forgot">
                 <form onSubmit={onSubmit}>
-                    <h1>התחברות</h1>
+                    <h1>שכחתי סיסמה</h1>
+                        בקשה לשחזור סיסמה לבעל חשבון:
                     {inputs.map((input) => (
                         <FormInput
                             key={input.id}
@@ -72,7 +61,6 @@ const Login = () => {
                             onChange={onChange}
                         />
                     ))}
-                    <a href="http://localhost:4100/forgot-password" target="_">שכחתי סיסמה</a>
                     <button>שלח</button>
                 </form>
             </div>
@@ -81,4 +69,4 @@ const Login = () => {
 };
 
 
-export default Login;
+export default Forgot;
