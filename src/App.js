@@ -27,6 +27,7 @@ function App() {
                     <Route path="/forgot-password" element={<Forgot />} />
                     <Route path="reset-password/:id" element={<ResetPassword />} />
                     <Route path="/" element={<Splitter />} />
+                    <Route path="*" element={<Splitter />} />
                 </Routes>
             </Router>
         </div>

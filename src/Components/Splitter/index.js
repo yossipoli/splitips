@@ -90,6 +90,8 @@ function Splitter() {
 
     return (
         <div className="App">
+
+            <h1>מחשבון שכר</h1>
             <MoneyDetails
                 salariesIn={salaries}
                 perHour={perHour}

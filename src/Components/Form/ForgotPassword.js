@@ -51,7 +51,7 @@ const Forgot = () => {
             </div>
             <div className="form forgot">
                 <form onSubmit={onSubmit}>
-                    <h1>שכחתי סיסמה</h1>
+                    <h1>שחזור סיסמה</h1>
                         בקשה לשחזור סיסמה לבעל חשבון:
                     {inputs.map((input) => (
                         <FormInput

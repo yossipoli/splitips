@@ -7,11 +7,35 @@ const postOption = (obj)=> ({
   })
 
 export const API = {
-    register : async(values) => (await fetch('http://localhost:4100/register', postOption(values)).then(res=> res.json())).res,
+    register : async(values) => {
+        try {
+            return (await fetch('http://localhost:4100/register', postOption(values)).then(res=> res.json())).res;
+        } catch {
+            return "fail";
+        }
+    },
 
-    login : async(values) => (await fetch('http://localhost:4100/login', postOption(values)).then(res=> res.json())).res,
+    login : async(values) => {
+        try {
+            return (await fetch('http://localhost:4100/login', postOption(values)).then(res=> res.json())).res;
+        } catch{
+            return "fail";
+        }
+    },
     
-    forgot : async(values) => (await fetch('http://localhost:4100/forgot-password', postOption(values)).then(res=> res.json())).res,
+    forgot : async(values) => {
+        try {
+           return (await fetch('http://localhost:4100/forgot-password', postOption(values)).then(res=> res.json())).res;
+        } catch {
+            return "fail";
+        }
+    },
     
-    resetPassword : async(id, values) => (await fetch(`http://localhost:4100/reset-password/${id}`, postOption(values)).then(res=> res.json())).res,
+    resetPassword : async(id, values) => {
+        try {
+            return (await fetch(`http://localhost:4100/reset-password/${id}`, postOption(values)).then(res=> res.json())).res
+        } catch {
+            return "fail";
+        }
+    },
 }
