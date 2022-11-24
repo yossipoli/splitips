@@ -43,17 +43,8 @@ const ResetPassword = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
         const res = await API.resetPassword(id, values);
-        switch (res) {
-            case "wrong":
-                toast.warning("משתמש לא מוכר");
-                break;
-            case "success":
-                toast.success("הסיסמה שלך שונתה בהצלחה");
-                setTimeout(() => nav("/all"), 2000);
-                break;
-            default:
-                toast.error("אירעה שגיאה");
-        }
+        toast[res.sign](res.msg)
+        if (res.sign === "success") setTimeout(()=> nav("/all"), 2000)//TODO change to login
     };
 
     return (

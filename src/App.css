@@ -1,6 +1,15 @@
-*:not(.alert img) {
+*:not(.alert div, .alert svg) {
   background-color: #282c34;
   color: aliceblue;
+}
+
+.alert button{
+  background-color: white;
+  color: #282c34;
+}
+
+.alert div{
+  color: #282c34;
 }
 
 .App {

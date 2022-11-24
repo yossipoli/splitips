@@ -43,17 +43,8 @@ const Login = () => {
     const onSubmit = async(e) => {
         e.preventDefault()
         const res = await API.login(values)
-        switch (res) {
-            case "wrong":
-                toast.warning("שם משתמש או סיסמה לא נכונים")
-                break
-            case "success":
-                toast.success("התחברת למערכת בהצלחה")
-                setTimeout(()=> nav("/all"), 2000)
-                break
-            default:
-                toast.error("אירעה שגיאה")
-        }
+        toast[res.sign](res.msg)
+        if (res.sign === "success") setTimeout(()=> nav("/all"), 2000)//TODO change to login
     };
     
     return (

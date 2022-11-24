@@ -31,17 +31,8 @@ const Forgot = () => {
     const onSubmit = async(e) => {
         e.preventDefault()
         const res = await API.forgot(values)
-        switch (res) {
-            case "wrong":
-                toast.warning("כתובת המייל הזו אינה נמצאת במערכת עדיין")
-                break
-            case "success":
-                toast.info("נשלחה לכתובת המייל שלך בקשה לאיפוס סיסמה")
-                setTimeout(()=> nav("/all"), 2000)//TODO change to login
-                break
-            default:
-                toast.error("אירעה שגיאה")
-        }
+        toast[res.sign](res.msg)
+        if (res.sign === "success") setTimeout(()=> nav("/all"), 2000)//TODO change to login
     };
     
     return (

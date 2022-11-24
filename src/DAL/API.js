@@ -9,7 +9,7 @@ const postOption = (obj)=> ({
 export const API = {
     register : async(values) => {
         try {
-            return (await fetch('http://localhost:4100/register', postOption(values)).then(res=> res.json())).res;
+            return await fetch('http://localhost:4100/register', postOption(values)).then(res=> res.json());
         } catch {
             return "fail";
         }
@@ -17,7 +17,7 @@ export const API = {
 
     login : async(values) => {
         try {
-            return (await fetch('http://localhost:4100/login', postOption(values)).then(res=> res.json())).res;
+            return await fetch('http://localhost:4100/login', postOption(values)).then(res=> res.json());
         } catch{
             return "fail";
         }
@@ -25,7 +25,7 @@ export const API = {
     
     forgot : async(values) => {
         try {
-           return (await fetch('http://localhost:4100/forgot-password', postOption(values)).then(res=> res.json())).res;
+           return await fetch('http://localhost:4100/forgot-password', postOption(values)).then(res=> res.json());
         } catch {
             return "fail";
         }
@@ -33,7 +33,7 @@ export const API = {
     
     resetPassword : async(id, values) => {
         try {
-            return (await fetch(`http://localhost:4100/reset-password/${id}`, postOption(values)).then(res=> res.json())).res
+            return await fetch(`http://localhost:4100/reset-password/${id}`, postOption(values)).then(res=> res.json());
         } catch {
             return "fail";
         }

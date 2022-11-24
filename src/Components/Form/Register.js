@@ -52,17 +52,8 @@ const Register = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
         const res = await API.register(values);
-        switch (res) {
-            case "wrong":
-                toast.warning("כתובת מייל זו כבר רשומה במערכת");
-                break;
-            case "success":
-                toast.success("נרשמת למערכת בהצלחה");
-                setTimeout(() => nav("/all"), 2000);
-                break;
-            default:
-                toast.error("אירעה שגיאה");
-        }
+        toast[res.sign](res.msg)
+        if (res.sign === "success") setTimeout(()=> nav("/all"), 2000)//TODO change to login
     };
 
     return (
