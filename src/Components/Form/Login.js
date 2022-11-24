@@ -72,7 +72,7 @@ const Login = () => {
                             onChange={onChange}
                         />
                     ))}
-                    <a href="http://localhost:4100/forgot-password" target="_">שכחתי סיסמה</a>
+                    <a href="http://localhost:4100/forgot-password" target="_">  שכחתי / החלף סיסמה</a>
                     <button>שלח</button>
                 </form>
             </div>

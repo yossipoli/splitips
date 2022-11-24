@@ -45,7 +45,7 @@ const ResetPassword = () => {
         const res = await API.resetPassword(id, values);
         switch (res) {
             case "wrong":
-                toast.warning("משתמש לא מוכר!");
+                toast.warning("משתמש לא מוכר");
                 break;
             case "success":
                 toast.success("הסיסמה שלך שונתה בהצלחה");
