@@ -1,4 +1,4 @@
-* {
+*:not(.alert img) {
   background-color: #282c34;
   color: aliceblue;
 }

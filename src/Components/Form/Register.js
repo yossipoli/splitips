@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import { API } from "../../DAL/API";
 import FormInput from "./InnerComponents/FormInput";
 
 const Register = () => {
+    const nav = useNavigate()
     const [values, setValues] = useState({
         email: "",
         password: "",
@@ -43,27 +47,43 @@ const Register = () => {
 
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
-      };
+    };
 
-    const onSubmit = (e) => {
-        e.preventDefault()
-        console.log(values);
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        const res = await API.register(values);
+        switch (res) {
+            case "wrong":
+                toast.warning("כתובת מייל זו כבר רשומה במערכת");
+                break;
+            case "success":
+                toast.success("נרשמת למערכת בהצלחה");
+                setTimeout(() => nav("/all"), 2000);
+                break;
+            default:
+                toast.error("אירעה שגיאה");
+        }
     };
 
     return (
-        <div className="form register">
-            <form onSubmit={onSubmit}>
-                <h1>הרשמה</h1>
-                {inputs.map((input) => (
-                    <FormInput
-                        key={input.id}
-                        {...input}
-                        value={values[input.name]}
-                        onChange={onChange}
-                    />
-                ))}
-                <button>שלח</button>
-            </form>
+        <div>
+            <div className="alert">
+                <ToastContainer />
+            </div>
+            <div className="form register">
+                <form onSubmit={onSubmit}>
+                    <h1>הרשמה</h1>
+                    {inputs.map((input) => (
+                        <FormInput
+                            key={input.id}
+                            {...input}
+                            value={values[input.name]}
+                            onChange={onChange}
+                        />
+                    ))}
+                    <button>שלח</button>
+                </form>
+            </div>
         </div>
     );
 };
