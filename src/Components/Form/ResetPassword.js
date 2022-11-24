@@ -7,7 +7,6 @@ import FormInput from "./InnerComponents/FormInput";
 const ResetPassword = () => {
     const nav = useNavigate()
     const {id} = useParams()
-    console.log(id);
 
     const [values, setValues] = useState({
         password: "",
