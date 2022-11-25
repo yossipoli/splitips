@@ -38,4 +38,20 @@ export const API = {
             return "fail";
         }
     },
+
+    getEmployeeData : async(values) => {
+        try {
+            return await fetch(`http://localhost:4100/paycheck`, postOption(values)).then(res=> res.json());
+        } catch {
+            return null;
+        }
+    },
+    
+    getPayDays : async(values) => {
+        try {
+            return await fetch(`http://localhost:4100/days`, postOption(values)).then(res=> res.json());
+        } catch {
+            return null;
+        }
+    },
 }

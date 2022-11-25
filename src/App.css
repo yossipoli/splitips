@@ -28,7 +28,7 @@ button{
   cursor: pointer;
 }
 
-.form h1 {
+h1 {
     color: white;
     text-shadow: 4px 4px 4px black;
 }

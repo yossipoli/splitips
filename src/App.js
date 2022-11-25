@@ -6,6 +6,7 @@ import Login from "./Components/Form/Login";
 import Register from "./Components/Form/Register";
 import Forgot from "./Components/Form/ForgotPassword";
 import ResetPassword from "./Components/Form/ResetPassword";
+import Paycheck from "./Components/Paycheck/Paycheck";
 
 function App() {
     return (
@@ -15,11 +16,17 @@ function App() {
                 <Routes>
                     <Route path="/all" element={
                         <div>
-                            <Register /> 
+                            {/* <Register /> 
                             <Login />
                             <Forgot/>
                             <ResetPassword/>
-                            <Splitter />
+                            <Splitter /> */}
+                            <Paycheck values={
+                                ({
+                                    startDate: "2022-11-20",
+                                    endDate: "2022-11-21",
+                                })
+                            }/>
                         </div>
                     }/>
                     <Route path="/login" element={<Login />} />

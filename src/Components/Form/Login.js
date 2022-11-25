@@ -44,7 +44,7 @@ const Login = () => {
         e.preventDefault()
         const res = await API.login(values)
         toast[res.sign](res.msg)
-        if (res.sign === "success") setTimeout(()=> nav("/all"), 2000)//TODO change to login
+        if (res.sign === "success") setTimeout(()=> nav("/all"), 2000)//TODO change to /
     };
     
     return (
