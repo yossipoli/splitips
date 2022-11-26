@@ -16,25 +16,21 @@ function App() {
                 <Routes>
                     <Route path="/all" element={
                         <div>
-                            {/* <Register /> 
+                            <Register /> 
                             <Login />
                             <Forgot/>
                             <ResetPassword/>
-                            <Splitter /> */}
-                            <Paycheck values={
-                                ({
-                                    startDate: "2022-11-20",
-                                    endDate: "2022-11-21",
-                                })
-                            }/>
+                            <Splitter />
+                            <Paycheck />
                         </div>
                     }/>
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/forgot-password" element={<Forgot />} />
                     <Route path="reset-password/:id" element={<ResetPassword />} />
-                    <Route path="/" element={<Splitter />} />
-                    <Route path="*" element={<Splitter />} />
+                    <Route path="/calculator" element={<Splitter />} />
+                    <Route path="/" element={<Paycheck />} />
+                    <Route path="*" element={<Paycheck />} />
                 </Routes>
             </Router>
         </div>

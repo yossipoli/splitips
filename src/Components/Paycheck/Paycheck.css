@@ -1,10 +1,10 @@
 
-/* .paycheck{
-    justify-content: center;
-} */
+.paycheck .row{
+    justify-content: space-around;
+}
 
 .paycheck table{
-    width: 95%;
+    width: 100%;
 }
 
 .paycheck tr{
@@ -17,7 +17,11 @@
 }
 
 .paycheck td{
-    /* width: 40px; */
+    width: 60px;
+}
+
+.paycheck td:nth-child(1){
+    width: 100px;
 }
 
 .paycheck tr:nth-child(even)>td{

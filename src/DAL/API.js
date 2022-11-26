@@ -54,4 +54,12 @@ export const API = {
             return null;
         }
     },
+
+    changeTookTip : async(values) => {
+        try {
+            return await fetch(`http://localhost:4100/change-took-tip`, postOption(values)).then(res=> res.json());
+        } catch {
+            return false;
+        }
+    },
 }
