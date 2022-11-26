@@ -28,6 +28,10 @@ function Paycheck() {
         setName(e.target.value)
     }
 
+    const handleChangeTookTip = ()=> {
+        // setShow([...show])
+    }
+
     useEffect(()=> {
         (async function getData(){
             const res = await API.getPayDays(dates)
@@ -79,14 +83,17 @@ function Paycheck() {
                     </tr>
                 </thead>
                 <tbody>
-                    { show[0] && show.map((emp, idx)=> <Employee key={idx} props={emp}/>) }
+                    { show[0] && show.map((emp, idx)=> <Employee key={idx} props={emp} onChange={()=> handleChangeTookTip()}/>) }
                 </tbody>
             </table>
         }
         <div className='summery row'>
             <div>סה"כ משכורת: {sum.salary}₪</div>
             <div>סה"כ טיפים שלא שולמו: {sum.tip}₪</div>
-            <div>סה"כ השלמות: {sum.expense}₪</div>
+            <div>סה"כ השלמות שבוצעו: {sum.expense}₪</div>
+        </div>
+        <div>
+            <h4>נותר לתשלום {sum.salary + sum.tip}</h4>
         </div>
     </div>
   )
