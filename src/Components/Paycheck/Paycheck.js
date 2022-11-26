@@ -28,8 +28,8 @@ function Paycheck() {
         setName(e.target.value)
     }
 
-    const handleChangeTookTip = ()=> {
-        // setShow([...show])
+    const handleChangeTookTip = (tipChange)=> {
+        setSum({...sum, tip: +sum.tip + tipChange})
     }
 
     useEffect(()=> {
@@ -70,8 +70,10 @@ function Paycheck() {
                 </div>
             </div>
             <div>
-                שם העובד
-                {" "}<input name='name' type="text" value={name} onChange={handleChangeName}/>
+                <div>
+                    שם העובד
+                </div>
+                <input name='name' type="text" value={name} onChange={handleChangeName}/>
             </div>
         </form>
 
@@ -83,7 +85,7 @@ function Paycheck() {
                     </tr>
                 </thead>
                 <tbody>
-                    { show[0] && show.map((emp, idx)=> <Employee key={idx} props={emp} onChange={()=> handleChangeTookTip()}/>) }
+                    { show[0] && show.map((emp, idx)=> <Employee key={idx} props={emp} onChange={handleChangeTookTip}/>) }
                 </tbody>
             </table>
         }

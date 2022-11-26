@@ -6,7 +6,7 @@ function Employee({props, onChange}) {
     const [tookTip, setTookTip] = useState(props["לקח טיפ"])
 
     const handleClick = ()=> {
-        onChange()
+        onChange(+props["טיפ"]* ( tookTip ? 1 : (-1) ))
         setTookTip(!tookTip)
         !API.changeTookTip({
             name: props["שם"],
