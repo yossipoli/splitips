@@ -4,8 +4,10 @@
 }
 
 .alert button{
-  background-color: white;
-  color: #282c34;
+  background-color: black;
+  border-radius: 50px;
+  width: 20px;
+  height: 20px;
 }
 
 .alert div{

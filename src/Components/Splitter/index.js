@@ -3,11 +3,26 @@ import "./../../App.css";
 import Employee from "./InnerComponents/Employee/Employee";
 import Add from "./InnerComponents/Add/Add";
 import MoneyDetails from "./InnerComponents/Salaries/Salaries";
+import Save from "./InnerComponents/Save/Save";
+
+const getTodayDate = ()=> {
+
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+    
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+    
+    return yyyy + '-' + mm + '-' + dd;
+}
 
 const employeeIn = () => ({
     name: "",
     start: "",
     end: "",
+    tookTip: true,
 });
 
 const employeeOut = () => ({
@@ -25,6 +40,9 @@ const calculateHoursDifference = (start, end) => {
 };
 
 function Splitter() {
+
+    const [date, setDate] = useState(getTodayDate())
+
     const [salaries, setSalaries] = useState({
         cash: 0,
         credit: 0,
@@ -56,7 +74,11 @@ function Splitter() {
 
     const updateEmployee = (idx, prop, value) => {
         const nextEmployees = [...employeesIn];
-        nextEmployees[idx][prop] = value;
+        if(prop==="tookTip"){
+            nextEmployees[idx][prop] = value === "true" ? true : false
+        } else {
+            nextEmployees[idx][prop] = value;
+        }
         setEmployeesIn(nextEmployees);
     };
 
@@ -92,6 +114,12 @@ function Splitter() {
         <div className="App">
 
             <h1>מחשבון שכר</h1>
+            <div>
+                <div>תאריך</div>
+                <div>
+                    <input type="date" value={date} onChange={e=> setDate(e.target.value)}/>
+                </div>
+            </div>
             <MoneyDetails
                 salariesIn={salaries}
                 perHour={perHour}
@@ -111,6 +139,7 @@ function Splitter() {
             ))}
 
             <Add add={add} />
+            <Save date={date} employeesIn= {employeesIn} employeesOut={employeesOut} salary={salaries} perHour={perHour}/>
         </div>
     );
 }

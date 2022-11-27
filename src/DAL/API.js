@@ -11,7 +11,7 @@ export const API = {
         try {
             return await fetch('http://localhost:4100/register', postOption(values)).then(res=> res.json());
         } catch {
-            return "fail";
+            return {sign: "error", msg:"אירעה שגיאה"};
         }
     },
 
@@ -19,7 +19,7 @@ export const API = {
         try {
             return await fetch('http://localhost:4100/login', postOption(values)).then(res=> res.json());
         } catch{
-            return "fail";
+            return {sign: "error", msg:"אירעה שגיאה"};
         }
     },
     
@@ -27,7 +27,7 @@ export const API = {
         try {
            return await fetch('http://localhost:4100/forgot-password', postOption(values)).then(res=> res.json());
         } catch {
-            return "fail";
+            return {sign: "error", msg:"אירעה שגיאה"};
         }
     },
     
@@ -35,7 +35,7 @@ export const API = {
         try {
             return await fetch(`http://localhost:4100/reset-password/${id}`, postOption(values)).then(res=> res.json());
         } catch {
-            return "fail";
+            return {sign: "error", msg:"אירעה שגיאה"};
         }
     },
 
@@ -60,6 +60,22 @@ export const API = {
             return await fetch(`http://localhost:4100/change-took-tip`, postOption(values)).then(res=> res.json());
         } catch {
             return false;
+        }
+    },
+
+    addDay : async(value) => {
+        try {
+            return await fetch(`http://localhost:4100/add`, postOption(value)).then(res=> res.json());
+        } catch {
+            return {sign: "error", msg:"אירעה שגיאה"};
+        }
+    },
+
+    remove : async(value) => {
+        try {
+            return await fetch(`http://localhost:4100/remove`, postOption(value)).then(res=> res.json());
+        } catch {
+            return {sign: "error", msg:"אירעה שגיאה"};
         }
     },
 }
