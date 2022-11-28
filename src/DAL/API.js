@@ -81,7 +81,7 @@ export const API = {
 
     checkCookie : async() => {
         try {
-            return (await fetch(`https://tipsplit-server.cyclic.app:4100/check-cookie`, {credentials: "include"}).then(res=> res.json())).res;
+            return (await fetch(`https://tipsplit-server.cyclic.app/check-cookie`, {credentials: "include"}).then(res=> res.json())).res;
         } catch {
             return false;
         }
