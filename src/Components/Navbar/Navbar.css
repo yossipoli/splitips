@@ -5,10 +5,12 @@
     border-top: 2px solid green;
     border-bottom: 2px solid green;
     padding: 10px 0;
+    flex-wrap: wrap;
 }
 
 .navbar .right, .navbar .left{
     display: flex;
+    margin: 10px 0;
 }
 
 .navbar .right> div, .navbar .left>div{
