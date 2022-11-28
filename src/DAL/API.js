@@ -78,4 +78,15 @@ export const API = {
             return {sign: "error", msg:"אירעה שגיאה"};
         }
     },
+
+    checkCookie : async() => {
+        try {
+            return (await fetch(`http://localhost:4100/check-cookie`, {credentials: "include"}).then(res=> res.json())).res;
+        } catch {
+            return false;
+        }
+    },
+    
+    logout : () => fetch(`http://localhost:4100/logout`, {credentials: "include"})
+
 }

@@ -1,0 +1,25 @@
+
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px solid green;
+    border-bottom: 2px solid green;
+    padding: 10px 0;
+}
+
+.navbar .right, .navbar .left{
+    display: flex;
+}
+
+.navbar .right> div, .navbar .left>div{
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.navbar a{
+    margin: 20px;
+    text-decoration: none;
+    font-size: larger;
+    font-weight: bolder;
+    cursor: pointer;
+}

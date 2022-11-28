@@ -4,10 +4,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useState } from "react";
 import { API } from "../../DAL/API";
 import FormInput from "./InnerComponents/FormInput";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = () => {
-    const nav = useNavigate()
     const [values, setValues] = useState({
         email: "",
         password: "",
@@ -44,7 +43,7 @@ const Login = () => {
         e.preventDefault()
         const res = await API.login(values)
         toast[res.sign](res.msg)
-        if (res.sign === "success") setTimeout(()=> nav("/all"), 2000)//TODO change to /
+        if (res.sign === "success") setTimeout(()=> window.location.replace("/"), 1000)
     };
     
     return (
@@ -63,7 +62,7 @@ const Login = () => {
                             onChange={onChange}
                         />
                     ))}
-                    <a href="http://localhost:4100/forgot-password" target="_">  שכחתי סיסמה</a>
+                    <Link to="/forgot-password"> שכחתי סיסמה </Link>
                     <button>שלח</button>
                 </form>
             </div>

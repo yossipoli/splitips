@@ -4,8 +4,16 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { API } from '../../DAL/API'
 import Employee from './PaycheckComponents/Employee'
+import { useNavigate } from 'react-router-dom'
 
 function Paycheck() {
+    const nav = useNavigate()
+    useEffect(()=>{
+        (async function checkPermission() {
+            !await API.checkCookie() && nav('/login')
+        })()
+    },[])
+    
     const [name, setName] = useState("")
     const [dates, setDates] = useState({
         first: "",
@@ -33,6 +41,7 @@ function Paycheck() {
     }
 
     useEffect(()=> {
+        dates.first !== '' && dates.last !== '' &&
         (async function getData(){
             const res = await API.getPayDays(dates)
             setData(res)

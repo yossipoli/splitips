@@ -4,6 +4,7 @@ import Employee from "./InnerComponents/Employee/Employee";
 import Add from "./InnerComponents/Add/Add";
 import MoneyDetails from "./InnerComponents/Salaries/Salaries";
 import Save from "./InnerComponents/Save/Save";
+import { API } from "../../DAL/API";
 
 const getTodayDate = ()=> {
 
@@ -40,6 +41,13 @@ const calculateHoursDifference = (start, end) => {
 };
 
 function Splitter() {
+
+    const [login, setLogin] = useState(false)
+    useEffect(()=>{
+        (async function checkPermission() {
+            await API.checkCookie() && setLogin(true)
+        })()
+    },[])
 
     const [date, setDate] = useState(getTodayDate())
 
@@ -139,7 +147,7 @@ function Splitter() {
             ))}
 
             <Add add={add} />
-            <Save date={date} employeesIn= {employeesIn} employeesOut={employeesOut} salary={salaries} perHour={perHour}/>
+            {login && <Save date={date} employeesIn= {employeesIn} employeesOut={employeesOut} salary={salaries} perHour={perHour}/>}
         </div>
     );
 }
