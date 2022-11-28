@@ -14,14 +14,14 @@ function Employee({idx, employeeIn, employeeOut, duplicate, remove, onChange}) {
                         <button
                             onClick={()=> duplicate(idx)}
                             className="duplicate"
-                            title="Duplicate"
+                            title="שכפל"
                         >
                             <IoCopy />
                         </button>
                         <button
                             onClick={() => remove(idx)}
                             className="removeBtn"
-                            title="Remove"
+                            title="מחק"
                         >
                             <FaTrash />
                         </button>
@@ -33,6 +33,18 @@ function Employee({idx, employeeIn, employeeOut, duplicate, remove, onChange}) {
                         value={employeeIn.name}
                         onChange={updateEmployee}
                     />
+                    <label className="tookTip">
+                        <button
+                            name="tookTip"
+                            value={employeeIn.tookTip? false : true}
+                            style={{ backgroundColor: employeeIn.tookTip ? "green" : "red" }}
+                            className="tookTipSpan"
+                            onClick={updateEmployee}
+                            title={employeeIn.tookTip? "לקח טיפ" : "לא לקח טיפ"}
+                        >
+                            {employeeIn.tookTip? "V" : "X"}
+                        </button>
+                    </label>
                 </div>
                 <div className="row">
                     <div className="startTime">

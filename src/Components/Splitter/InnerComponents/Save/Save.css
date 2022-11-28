@@ -1,0 +1,14 @@
+
+.save{
+    margin: 10px;
+}
+
+.save button{
+    font-size: larger;
+    font-weight: bolder;
+    padding: 10px;
+    background-color: none;
+    border-radius: 30px;
+    border-color: white;
+    box-shadow: 3px 3px 10px rgb(15, 15, 15);
+}

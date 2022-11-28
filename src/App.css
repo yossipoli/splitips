@@ -1,6 +1,18 @@
-*{
+*:not(.alert div, .alert svg) {
   background-color: #282c34;
   color: aliceblue;
+}
+
+.alert button{
+  /* background-color: rgb(223, 140, 140); */
+  border-radius: 50px;
+  width: 20px;
+  height: 20px;
+  box-shadow: none;
+}
+
+.alert div{
+  color: #282c34;
 }
 
 .App {
@@ -9,8 +21,19 @@
   direction: rtl;
 }
 
-.row{
+.row {
   justify-content: center;
   display: flex;
   margin: 10px;
+}
+
+button{
+  box-shadow: 3px 3px 10px rgb(15, 15, 15);
+
+  cursor: pointer;
+}
+
+h1 {
+    color: white;
+    text-shadow: 4px 4px 4px black;
 }

@@ -1,0 +1,34 @@
+
+.paycheck .row{
+    justify-content: space-around;
+}
+
+.paycheck table{
+    width: 100%;
+}
+
+.paycheck tr{
+    height: 40px;
+    border: 1px solid black;
+}
+
+.paycheck th{
+    /* width: 2vw; */
+}
+
+.paycheck td{
+    width: 60px;
+}
+
+.paycheck td:nth-child(1){
+    width: 100px;
+}
+
+.paycheck tr:nth-child(even)>td{
+    background-color: white;
+    color: green;
+}
+.paycheck tr:nth-child(odd)>td{
+    background-color: green;
+    color: white;
+}
