@@ -1,6 +1,7 @@
 import './Navbar.css'
 import { RiLoginCircleFill, RiLogoutCircleFill } from 'react-icons/ri'
 import { BsFillCalculatorFill, BsCashCoin } from 'react-icons/bs'
+import { FaCashRegister } from 'react-icons/fa'
 import { Link } from 'react-router-dom';
 import { API } from '../../DAL/API';
 import { useEffect, useState } from 'react';
@@ -23,12 +24,15 @@ function NavBar() {
             </div>
         </div>
         <div className="left">
-            <div>
-                { login
-                    ? <a href='/' onClick = {()=> API.logout()}> <RiLogoutCircleFill/> התנתק </a>
-                    : <Link to="/login"> <RiLoginCircleFill/> התחבר </Link>
-                }
-            </div>
+            { login
+                ? <div>
+                    <a href='/' onClick = {()=> API.logout()}> <RiLogoutCircleFill/> התנתק </a>
+                </div>
+                : <div>
+                    <Link to="/register"> <FaCashRegister/> משתמש חדש </Link>
+                    <Link to="/login"> <RiLoginCircleFill/> התחבר </Link>
+                </div>
+            }
         </div>
     </div>
   );

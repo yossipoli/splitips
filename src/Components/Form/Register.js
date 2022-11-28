@@ -51,7 +51,6 @@ const Register = () => {
         e.preventDefault();
         const res = await API.register(values);
         toast[res.sign](res.msg)
-        if (res.sign === "success") setTimeout(()=> window.location.replace("/"), 2000)
     };
 
     return (
