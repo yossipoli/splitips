@@ -8,6 +8,7 @@ import Forgot from "./Components/Form/ForgotPassword";
 import ResetPassword from "./Components/Form/ResetPassword";
 import Paycheck from "./Components/Paycheck/Paycheck";
 import NavBar from "./Components/Navbar/Navbar";
+import { ToastContainer } from "react-toastify";
 
 function App() {
     return (
@@ -15,6 +16,9 @@ function App() {
             <Router>
                 <Logo />
                 <NavBar/>
+                <div className="alert">
+                    <ToastContainer position="bottom-right"/>
+                </div>
                 <Routes>
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />

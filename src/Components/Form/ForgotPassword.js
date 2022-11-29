@@ -1,6 +1,6 @@
 import "./Form.css";
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useState } from "react";
 import { API } from "../../DAL/API";
 import FormInput from "./InnerComponents/FormInput";
@@ -37,9 +37,6 @@ const Forgot = () => {
     
     return (
         <div>
-            <div className="alert">
-                <ToastContainer/>
-            </div>
             <div className="form forgot">
                 <form onSubmit={onSubmit}>
                     <h1>שחזור סיסמה</h1>
