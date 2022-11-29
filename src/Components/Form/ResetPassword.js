@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { API } from "../../DAL/API";
 import FormInput from "./InnerComponents/FormInput";
 
@@ -49,9 +49,6 @@ const ResetPassword = () => {
 
     return (
         <div>
-            <div className="alert">
-                <ToastContainer />
-            </div>
             <div className="form resetPassword">
                 <form onSubmit={onSubmit}>
                     <h1>חידוש סיסמה</h1>

@@ -1,6 +1,6 @@
 import "./Save.css";
 import React from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { API } from "../../../../DAL/API";
 
 function Save({ date, employeesIn, employeesOut, salary, perHour }) {
@@ -30,9 +30,6 @@ function Save({ date, employeesIn, employeesOut, salary, perHour }) {
 
     return (
         <div>
-            <div className="alert">
-                <ToastContainer/>
-            </div>
             <div className="save">
                 <button onClick={handleClick}>שמור</button>
             </div>
