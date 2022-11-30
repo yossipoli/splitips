@@ -1,3 +1,7 @@
+
+const SERVER = 'https://tipsplit-server.cyclic.app/'
+const LOCAL = 'https://localhost:4100/'
+
 //POST requests options
 const postOption = (obj)=> ({
       method: 'POST',
@@ -9,7 +13,7 @@ const postOption = (obj)=> ({
 export const API = {
     register : async(values) => {
         try {
-            return await fetch('https://easy-pear-penguin-tux.cyclic.app/register', postOption(values)).then(res=> res.json());
+            return await fetch(`${SERVER}}/register`, postOption(values)).then(res=> res.json());
         } catch {
             return {sign: "error", msg:"אירעה שגיאה"};
         }
@@ -17,7 +21,7 @@ export const API = {
 
     login : async(values) => {
         try {
-            return await fetch('https://easy-pear-penguin-tux.cyclic.app/login', postOption(values)).then(res=> res.json());
+            return await fetch(`${SERVER}/login`, postOption(values)).then(res=> res.json());
         } catch{
             return {sign: "error", msg:"אירעה שגיאה"};
         }
@@ -25,7 +29,7 @@ export const API = {
     
     forgot : async(values) => {
         try {
-           return await fetch('https://easy-pear-penguin-tux.cyclic.app/forgot-password', postOption(values)).then(res=> res.json());
+           return await fetch(`${SERVER}/forgot-password`, postOption(values)).then(res=> res.json());
         } catch {
             return {sign: "error", msg:"אירעה שגיאה"};
         }
@@ -33,7 +37,7 @@ export const API = {
     
     resetPassword : async(id, values) => {
         try {
-            return await fetch(`https://easy-pear-penguin-tux.cyclic.app/reset-password/${id}`, postOption(values)).then(res=> res.json());
+            return await fetch(`${SERVER}/reset-password/${id}`, postOption(values)).then(res=> res.json());
         } catch {
             return {sign: "error", msg:"אירעה שגיאה"};
         }
@@ -41,7 +45,7 @@ export const API = {
 
     getEmployeeData : async(values) => {
         try {
-            return await fetch(`https://easy-pear-penguin-tux.cyclic.app/paycheck`, postOption(values)).then(res=> res.json());
+            return await fetch(`${SERVER}/paycheck`, postOption(values)).then(res=> res.json());
         } catch {
             return null;
         }
@@ -49,7 +53,7 @@ export const API = {
     
     getPayDays : async(values) => {
         try {
-            return await fetch(`https://easy-pear-penguin-tux.cyclic.app/days`, postOption(values)).then(res=> res.json());
+            return await fetch(`${SERVER}/days`, postOption(values)).then(res=> res.json());
         } catch {
             return null;
         }
@@ -57,7 +61,7 @@ export const API = {
 
     changeTookTip : async(values) => {
         try {
-            return await fetch(`https://easy-pear-penguin-tux.cyclic.app/change-took-tip`, postOption(values)).then(res=> res.json());
+            return await fetch(`${SERVER}/change-took-tip`, postOption(values)).then(res=> res.json());
         } catch {
             return false;
         }
@@ -65,7 +69,7 @@ export const API = {
 
     addDay : async(value) => {
         try {
-            return await fetch(`https://easy-pear-penguin-tux.cyclic.app/add`, postOption(value)).then(res=> res.json());
+            return await fetch(`${SERVER}/add`, postOption(value)).then(res=> res.json());
         } catch {
             return {sign: "error", msg:"אירעה שגיאה"};
         }
@@ -73,7 +77,7 @@ export const API = {
 
     remove : async(value) => {
         try {
-            return await fetch(`https://easy-pear-penguin-tux.cyclic.app/remove`, postOption(value)).then(res=> res.json());
+            return await fetch(`${SERVER}/remove`, postOption(value)).then(res=> res.json());
         } catch {
             return {sign: "error", msg:"אירעה שגיאה"};
         }
@@ -81,12 +85,12 @@ export const API = {
 
     checkCookie : async() => {
         try {
-            return (await fetch(`https://easy-pear-penguin-tux.cyclic.app/check-cookie`, {credentials: "include"}).then(res=> res.json())).res;
+            return (await fetch(`${SERVER}/check-cookie`, {credentials: "include"}).then(res=> res.json())).res;
         } catch {
             return false;
         }
     },
     
-    logout : () => fetch(`https://easy-pear-penguin-tux.cyclic.app/logout`, {credentials: "include"})
+    logout : () => fetch(`${SERVER}/logout`, {credentials: "include"})
 
 }
