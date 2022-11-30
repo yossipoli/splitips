@@ -25,6 +25,7 @@ function App() {
                     <Route path="/forgot-password" element={<Forgot />} />
                     <Route path="reset-password/:id" element={<ResetPassword />} />
                     <Route path="/paycheck" element={<Paycheck />} />
+                    <Route path="/calculator/:dateParam" element={<Splitter />} />
                     <Route path="/" element={<Splitter />} />
                     <Route path="*" element={<Splitter />} />
                 </Routes>

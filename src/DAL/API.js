@@ -1,6 +1,8 @@
 
-const SERVER = 'https://tipsplit-server.cyclic.app/'
-const LOCAL = 'https://localhost:4100/'
+// eslint-disable-next-line no-unused-vars
+const SERVER = 'https://tipsplit-server.cyclic.app'
+// eslint-disable-next-line no-unused-vars
+const LOCAL = 'http://localhost:4100'
 
 const HOST = SERVER
 
@@ -15,7 +17,7 @@ const postOption = (obj)=> ({
 export const API = {
     register : async(values) => {
         try {
-            return await fetch(`${HOST}}/register`, postOption(values)).then(res=> res.json());
+            return await fetch(`${HOST}/register`, postOption(values)).then(res=> res.json());
         } catch {
             return {sign: "error", msg:"אירעה שגיאה"};
         }
@@ -61,6 +63,14 @@ export const API = {
         }
     },
 
+    getDateSalary : async(values) => {
+        try {
+            return (await fetch(`${HOST}/salary-date`, postOption(values)).then(res=> res.json()))[0];
+        } catch {
+            return null;
+        }
+    },
+
     changeTookTip : async(values) => {
         try {
             return await fetch(`${HOST}/change-took-tip`, postOption(values)).then(res=> res.json());
@@ -77,9 +87,25 @@ export const API = {
         }
     },
 
+    saveSalary : async(value) => {
+        try {
+            return await fetch(`${HOST}/save-salary`, postOption(value)).then(res=> res.json());
+        } catch {
+            return {sign: "error", msg:"אירעה שגיאה"};
+        }
+    },
+
     remove : async(value) => {
         try {
             return await fetch(`${HOST}/remove`, postOption(value)).then(res=> res.json());
+        } catch {
+            return {sign: "error", msg:"אירעה שגיאה"};
+        }
+    },
+
+    removeSalary : async(value) => {
+        try {
+            return await fetch(`${HOST}/remove-salary`, postOption(value)).then(res=> res.json());
         } catch {
             return {sign: "error", msg:"אירעה שגיאה"};
         }

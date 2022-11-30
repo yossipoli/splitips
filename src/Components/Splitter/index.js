@@ -5,9 +5,9 @@ import Add from "./InnerComponents/Add/Add";
 import MoneyDetails from "./InnerComponents/Salaries/Salaries";
 import Save from "./InnerComponents/Save/Save";
 import { API } from "../../DAL/API";
+import { useParams } from "react-router-dom";
 
 const getTodayDate = ()=> {
-
     const today = new Date();
     const yyyy = today.getFullYear();
     let mm = today.getMonth() + 1; // Months start at 0!
@@ -42,14 +42,17 @@ const calculateHoursDifference = (start, end) => {
 
 function Splitter() {
 
+    const {dateParam} = useParams()
+
     const [login, setLogin] = useState(false)
+
     useEffect(()=>{
         (async function checkPermission() {
             await API.checkCookie() && setLogin(true)
-        })()
+        })()   
     },[])
 
-    const [date, setDate] = useState(getTodayDate())
+    const [date, setDate] = useState(dateParam || getTodayDate())
 
     const [salaries, setSalaries] = useState({
         cash: 0,
@@ -63,8 +66,31 @@ function Splitter() {
     const [employeesIn, setEmployeesIn] = useState([employeeIn()]);
     const [employeesOut, setEmployeesOut] = useState([employeeOut()]);
 
+    useEffect(()=>{
+        login &&
+        (async function getData(){
+            const data = await API.getPayDays({first: date})
+            if (data && data.length){
+                const text = prompt('בתאריך זה קיים כבר מידע.\n בלחיצה על OK יוצג המידע השמור ויאבד המידע שלא שמרת עדיין.\n לביטול לחץ Cancel')
+                if (text || text === ""){
+                    const empIn = []
+                    data.map(prop=> empIn.push({name: prop["שם"], start: prop["כניסה"], end: prop["יציאה"], tookTip:prop["לקח איפ"]? false : true}))
+                    setEmployeesIn(empIn)
+                    setSalaries(await API.getDateSalary({date}))
+                }
+            }
+        })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[date])
+
     const add = () => {
         setEmployeesIn([...employeesIn, employeeIn()]);
+    };
+
+    const reset = () => {
+        setEmployeesOut([employeeOut()]);
+        setEmployeesIn([employeeIn()]);
+        setSalaries({...salaries, cash: 0, credit: 0})
     };
 
     const duplicate = (idx) => {
@@ -146,7 +172,7 @@ function Splitter() {
                 />
             ))}
 
-            <Add add={add} />
+            <Add add={add} reset={reset}/>
             {login && <Save date={date} employeesIn= {employeesIn} employeesOut={employeesOut} salary={salaries} perHour={perHour}/>}
         </div>
     );

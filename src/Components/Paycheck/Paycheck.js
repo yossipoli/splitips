@@ -99,12 +99,12 @@ function Paycheck() {
             </table>
         }
         <div className='summery row'>
-            <div>סה"כ משכורת: {sum.salary}₪</div>
-            <div>סה"כ טיפים שלא שולמו: {sum.tip}₪</div>
-            <div>סה"כ השלמות שבוצעו: {sum.expense}₪</div>
+            <div>סה"כ משכורת: {Math.round(sum.salary*100)/100}₪</div>
+            <div>סה"כ טיפים שלא שולמו: {Math.round(sum.tip*100)/100}₪</div>
+            <div>סה"כ השלמות שבוצעו: {Math.round(sum.expense*100)/100}₪</div>
         </div>
         <div>
-            <h4>נותר לתשלום {sum.salary + sum.tip}</h4>
+            <h4>נותר לתשלום {Math.round((sum.salary + sum.tip)*100)/100}</h4>
         </div>
     </div>
   )
