@@ -43,7 +43,7 @@ const Login = () => {
         e.preventDefault()
         const res = await API.login(values)
         toast[res.sign](res.msg)
-        if (res.sign === "success") setTimeout(()=> window.location.replace("/"), 1000)
+        if (res.sign === "success") window.location.replace("/")
     };
     
     return (

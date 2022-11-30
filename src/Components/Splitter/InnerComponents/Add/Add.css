@@ -3,10 +3,15 @@
 }
 
 .add .addBtn{
+    margin: 0 20px;
     font-size: larger;
     font-weight: bolder;
     padding: 10px;
     background-color: green;
     border-radius: 30px;
     border-color: white;
+}
+
+.add .reset{
+    background-color: yellowgreen;
 }

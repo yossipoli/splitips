@@ -22,8 +22,10 @@ function Save({ date, employeesIn, employeesOut, salary, perHour }) {
                 tookTip: employeesIn[idx].tookTip ? 1: 0
             })
         }
-        //TODO check if this date is clean or not before
         await API.remove({date})
+        await API.removeSalary({date})
+        const salaries = {...salary, date}
+        await API.saveSalary({salaries})
         const res = await API.addDay({employees})
         toast[res.sign](res.msg)
     }

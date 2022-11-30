@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { API } from "../../DAL/API";
 import FormInput from "./InnerComponents/FormInput";
 
 const Register = () => {
+    const nav = useNavigate()
     const [values, setValues] = useState({
         email: "",
         password: "",
@@ -51,6 +53,7 @@ const Register = () => {
         e.preventDefault();
         const res = await API.register(values);
         toast[res.sign](res.msg)
+        if (res.sign === "success") nav("/")
     };
 
     return (
