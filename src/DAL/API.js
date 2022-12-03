@@ -1,6 +1,6 @@
 
 // eslint-disable-next-line no-unused-vars
-const SERVER = 'https://tipsplit-server.cyclic.app'
+const SERVER = 'https://server2.tipsplit.click/'
 // eslint-disable-next-line no-unused-vars
 const LOCAL = 'http://localhost:4100'
 
