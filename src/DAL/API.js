@@ -10,7 +10,7 @@ const HOST = SERVER
 const postOption = (obj)=> ({
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-    //   credentials: 'include',
+      credentials: 'include',
       body: JSON.stringify(obj)
   })
 
@@ -113,12 +113,12 @@ export const API = {
 
     checkCookie : async() => {
         try {
-            return (await fetch(`${HOST}/check-cookie`/*, {credentials: "include"}*/).then(res=> res.json())).res;
+            return (await fetch(`${HOST}/check-cookie`, {credentials: "include"}).then(res=> res.json())).res;
         } catch {
             return false;
         }
     },
     
-    logout : () => fetch(`${HOST}/logout`/*, {credentials: "include"}*/)
+    logout : () => fetch(`${HOST}/logout`, {credentials: "include"})
 
 }
