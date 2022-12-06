@@ -1,6 +1,6 @@
 
 // eslint-disable-next-line no-unused-vars
-const SERVER = 'http://server2.tipsplit.click'
+const SERVER = 'https://tipsplit-server.herokuapp.com/'
 // eslint-disable-next-line no-unused-vars
 const LOCAL = 'http://localhost:4100'
 
