@@ -71,10 +71,9 @@ function Splitter() {
         (async function getData(){
             const data = await API.getPayDays({first: date})
             if (data && data.length){
-                const text = prompt('בתאריך זה קיים כבר מידע.\n בלחיצה על OK יוצג המידע השמור ויאבד המידע שלא שמרת עדיין.\n לביטול לחץ Cancel')
-                if (text || text === ""){
+                if (window.confirm(`בתאריך זה שמור מיידע קיים\nבלחיצה על אישור, מידע לא שמור יימחק וייטען המידע הקיים`)){
                     const empIn = []
-                    data.map(prop=> empIn.push({name: prop["שם"], start: prop["כניסה"], end: prop["יציאה"], tookTip:prop["לקח איפ"]? false : true}))
+                    data.map(prop=> empIn.push({name: prop.name, start: prop.start, end: prop.end, tookTip:prop.took_tip? false : true}))
                     setEmployeesIn(empIn)
                     setSalaries(await API.getDateSalary({date}))
                 }
