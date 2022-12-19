@@ -1,27 +1,28 @@
 
-.paycheck .row{
-    justify-content: space-around;
+.paycheck .dates> div{
+    margin: 0 40px;
+}
+
+.paycheck .table{
+    display: flex;
+    margin: 20px auto auto auto;
+    justify-content: center;
+    overflow-x: scroll;
 }
 
 .paycheck table{
-    width: 100%;
+    display: block;
+    width: 1000px;
+}
+
+.paycheck td{
+    padding: 5px;
+    width: 150px;
 }
 
 .paycheck tr{
     height: 40px;
     border: 1px solid black;
-}
-
-.paycheck th{
-    /* width: 2vw; */
-}
-
-.paycheck td{
-    width: 60px;
-}
-
-.paycheck td:nth-child(1){
-    width: 100px;
 }
 
 .paycheck tr:nth-child(even)>td{
@@ -31,4 +32,8 @@
 .paycheck tr:nth-child(odd)>td{
     background-color: green;
     color: white;
+}
+
+.paycheck .summery{
+    justify-content: space-around;
 }

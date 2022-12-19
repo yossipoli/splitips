@@ -49,13 +49,13 @@ function Paycheck() {
     },[dates])
 
     useEffect(()=> {
-        setShow(data.filter(emp=> emp["שם"].includes(name)))
+        setShow(data.filter(emp=> emp.name.includes(name)))
     },[name, data])
 
     useEffect(()=> {
-        const salary = show.reduce((sum, emp)=> sum + emp["שכר"], 0)
-        const tip = show.reduce((sum, emp)=> sum + (!emp["לקח טיפ"] ? emp["טיפ"] : 0), 0)
-        const expense = show.reduce((sum, emp)=> sum + emp["הוצאות"], 0)
+        const salary = show.reduce((sum, emp)=> sum + emp.salary, 0)
+        const tip = show.reduce((sum, emp)=> sum + (!emp.took_tip ? emp.tips : 0), 0)
+        const expense = show.reduce((sum, emp)=> sum + emp.expense, 0)
         setSum({salary, tip, expense})
     }, [show])
 
@@ -64,7 +64,7 @@ function Paycheck() {
         <h1>שכר תקופתי</h1>
 
         <form>
-            <div className="row">
+            <div className="dates row">
                 <div>
                     <div>
                         תאריך התחלתי
@@ -87,16 +87,28 @@ function Paycheck() {
         </form>
 
         {!show || !show.length ? <h4>אין מידע לגבי התאריכים המבוקשים</h4> : 
-            <table>
-                <thead>
-                    <tr>
-                        { show[0] && Object.keys(show[0]).map((title, idx)=> <th key={idx}>{title}</th>) }
-                    </tr>
-                </thead>
-                <tbody>
-                    { show[0] && show.map((emp, idx)=> <Employee key={idx} props={emp} onChange={handleChangeTookTip}/>) }
-                </tbody>
-            </table>
+            <div className='table'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>תאריך</th>
+                            <th>שם</th>
+                            <th>התחלה</th>
+                            <th>סיום</th>
+                            <th>סה"כ שעות</th>
+                            <th>מינימום</th>
+                            <th>שכר שעתי</th>
+                            <th>שכר</th>
+                            <th>טיפ</th>
+                            <th>הוצאות</th>
+                            <th>לקח טיפ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        { show[0] && show.map((emp, idx)=> <Employee key={idx} props={emp} onChange={handleChangeTookTip}/>) }
+                    </tbody>
+                </table>
+            </div>
         }
         <div className='summery row'>
             <div>סה"כ משכורת: {Math.round(sum.salary*100)/100}₪</div>
