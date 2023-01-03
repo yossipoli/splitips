@@ -1,10 +1,10 @@
 האתר משמש לניהול שכר מלצרים במסעדה כשאשר השכר מתבסס על טיפים בלבד.
-ישנו מחשבון שכר עפ"י שעות המלצר
-ניתן לצפות בשכר העובדים על פני תקופה נבחרת
+ישנו מחשבון שכר עפ"י שעות המלצר.
+ניתן לצפות בשכר העובדים על פני תקופה נבחרת.
 
-Based on ReactJS
-Server => ExpressJS
-DATA Base => MySQL
+Based on ReactJS,
+Server => ExpressJS,
+DATA Base => MySQL.
 
 
 # Getting Started with Create React App
