@@ -1,6 +1,14 @@
+
+
 האתר משמש לניהול שכר מלצרים במסעדה כשאשר השכר מתבסס על טיפים בלבד.
 ישנו מחשבון שכר עפ"י שעות המלצר.
 ניתן לצפות בשכר העובדים על פני תקופה נבחרת.
+
+
+![$piTip$ (1)](https://user-images.githubusercontent.com/99310684/220694312-c2df6391-4b81-4479-9fa0-b052336d92d7.png)
+
+<img width="744" alt="image" src="https://user-images.githubusercontent.com/99310684/220694066-b99b739d-f7cb-4142-a459-1837f0fe3d35.png">
+
 
 Based on ReactJS,
 Server => ExpressJS,
